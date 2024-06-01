@@ -1,9 +1,27 @@
-import React from "react";
-import { StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Text, Alert } from "react-native";
+import app from "../config/firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+const auth = getAuth(app);
 const { width, height } = Dimensions.get('window');
 
-export default function Login() {
+export default function Login(props) {
+
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const functionLogin = async()=>{
+        try{
+            await signInWithEmailAndPassword(auth, email, password);
+            Alert.alert("Iniciando sesión...", "Accediendo");
+            props.navigation.navigate('Home');
+        } catch(error){
+            Alert.alert("Error", "Usuario o contraseña incorrectos")
+            console.log(error);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -14,13 +32,13 @@ export default function Login() {
                 </View>
             </View>
             <View style={styles.contentContainer}>
-                <TextInput placeholder="Correo electrónico" style={styles.input}/>
-                <TextInput placeholder="Contraseña" style={styles.input} secureTextEntry/>
+                <TextInput placeholder="Correo electrónico" style={styles.input} onChangeText={(text)=>setEmail(text)}/>
+                <TextInput placeholder="Contraseña" style={styles.input} onChangeText={(text)=>setPassword(text)} secureTextEntry/>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={functionLogin}>
                         <Text style={styles.buttonText}>Iniciar sesión</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.registerButton]}>
+                    <TouchableOpacity style={[styles.button, styles.registerButton]} >
                         <Text style={[styles.buttonText, styles.registerButtonText]}>Registrarse</Text>
                     </TouchableOpacity>
                 </View>
@@ -47,7 +65,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: width,
         height: height / 2,
-        position: 'relative', // Asegura que la posición absoluta sea relativa a este contenedor
+        position: 'relative', 
     },
     image: {
         width: '100%',
@@ -56,19 +74,19 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(44, 11, 14, 0.8)', // Color oscuro al 80%
+        backgroundColor: 'rgba(44, 11, 14, 0.8)', 
     },
     logoContainer: {
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: [{ translateX: -(width / 3) }, { translateY: -(height / 4) }], // Ajustar el valor según la mitad del tamaño de la imagen
+        transform: [{ translateX: -(width / 3) }, { translateY: -(height / 4) }], 
     },
     logo: {
-        width: width / 1.4, // Ajuste el ancho del logo
-        height: height / 2, // Ajuste la altura del logo
+        width: width / 1.4, 
+        height: height / 2, 
         resizeMode: 'contain',
-        tintColor: '#fff', // Cambiar el color del logo a blanco
+        tintColor: '#fff', 
     },
     contentContainer: {
         flex: 1,
@@ -100,11 +118,11 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '500', // Semibold
+        fontWeight: '500', 
     },
     registerButtonText: {
         color: '#DC3545',
-        fontWeight: '500', // Semibold
+        fontWeight: '500', 
     },
     socialContainer: {
         alignItems: 'center',
@@ -123,10 +141,10 @@ const styles = StyleSheet.create({
         padding: 1,
     },
     socialButtonMarginRight: {
-        marginRight: 0, // Reducido el margen derecho
+        marginRight: 0, 
     },
     socialButtonMarginLeft: {
-        marginLeft: 0, // Añadido margen izquierdo
+        marginLeft: 0,
     },
     socialIcon: {
         width: 40,
