@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home';
 import Login from './screens/Login';
+import Register from './screens/Register';
 
 export default function App() {
 
@@ -14,6 +15,7 @@ export default function App() {
     return(
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Register' component={Register}/>
         <Stack.Screen name='Home' component={Home}/>
       </Stack.Navigator>
     );
