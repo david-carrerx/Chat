@@ -1,12 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './screens/Home';
+import Login from './screens/Login';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Altaiddr</Text>
-      <StatusBar style="auto" />
-    </View>
+
+  const Stack = createStackNavigator();
+
+  function MyStack(){
+    return(
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Home' component={Home}/>
+      </Stack.Navigator>
+    );
+  }
+
+  return(
+<NavigationContainer>
+  <MyStack/>
+</NavigationContainer>
   );
 }
 
