@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function Profile({ navigation }) {
-    // Función para cerrar sesión
     const handleLogout = () => {
         // Aquí puedes agregar la lógica para cerrar la sesión
         // Por ejemplo, puedes limpiar el estado de autenticación o redirigir a la pantalla de inicio de sesión
@@ -11,11 +10,33 @@ export default function Profile({ navigation }) {
     };
 
     return (
-        <View>
-            <TouchableOpacity onPress={handleLogout}>
-                <Text style={{ color: 'blue', fontSize: 16 }}>Cerrar sesión</Text>
+        <View style={styles.container}>
+            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                <Text style={styles.buttonText}>Cerrar sesión</Text>
             </TouchableOpacity>
-            {/* Otro contenido de la pantalla Profile */}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
+    },
+    button: {
+        backgroundColor: '#DC3545',
+        borderRadius: 5,
+        padding: 10,
+        width: 325, 
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+});

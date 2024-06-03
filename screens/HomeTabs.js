@@ -24,7 +24,7 @@ export default function HomeTabs() {
                             iconName = focused ? EventsIcon : EventsIcon;
                         }
 
-                        return <Image source={iconName} style={{ width: 20, height: 20 }} />;
+                        return <Image source={iconName} style={{ width: 30, height: 30 }} />;
                     },
                     tabBarActiveTintColor: '#000', // Color de las pestañas activas
                     tabBarInactiveTintColor: 'gray', // Color de las pestañas inactivas
