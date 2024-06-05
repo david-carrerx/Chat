@@ -1,21 +1,40 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 export default function Profile({ navigation }) {
-    const handleLogout = () => {
-        // Aquí puedes agregar la lógica para cerrar la sesión
-        // Por ejemplo, puedes limpiar el estado de autenticación o redirigir a la pantalla de inicio de sesión
-        // Después de cerrar la sesión, navega a la pantalla de inicio de sesión
-        navigation.navigate('Login');
-    };
+    const [messages, setMessages] = useState([])
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                <Text style={styles.buttonText}>Cerrar sesión</Text>
-            </TouchableOpacity>
-        </View>
-    );
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: 'Hello gay',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+    ])
+  }, [])
+
+  const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages),
+    )
+  }, [])
+
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={messages => onSend(messages)}
+      user={{
+        _id: 1,
+      }}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
