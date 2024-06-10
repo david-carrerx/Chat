@@ -12,7 +12,7 @@ export default function App() {
 
     function MyStack() {
         return (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{ headerShown: true }}>
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen name='Register' component={Register} />
                 <Stack.Screen name='Home' component={HomeTabs} />
